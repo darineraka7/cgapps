@@ -1,12 +1,13 @@
 #!/sbin/sh
 #
-# /system/addon.d/70-gapps.sh
+# /system/addon.d/30-gapps.sh
 #
 . /tmp/backuptool.functions
 
 list_files() {
 cat <<EOF
 addon.d/30-gapps.sh
+app/FaceLock/FaceLock.apk
 app/GoogleCalendarSyncAdapter/GoogleCalendarSyncAdapter.apk
 app/GoogleContactsSyncAdapter/GoogleContactsSyncAdapter.apk
 etc/permissions/com.google.android.camera2.xml
@@ -18,35 +19,41 @@ framework/com.google.camera2.jar
 framework/com.google.android.maps.jar
 framework/com.google.android.media.effects.jar
 framework/com.google.widevine.software.drm.jar
-lib/libfilterpack_facedetect.so
-lib/libgoogle_hotword_jni.so
-lib/libgoogle_recognizer_jni_l.so
-lib/libjni_latinimegoogle.so
-lib64/libvorbisencoder.so
+lib64/libfacelock_jni.so
+lib64/libjni_latinimegoogle.so
 priv-app/GoogleBackupTransport/GoogleBackupTransport.apk
 priv-app/GoogleFeedback/GoogleFeedback.apk
 priv-app/GoogleLoginService/GoogleLoginService.apk
 priv-app/GoogleOneTimeInitializer/GoogleOneTimeInitializer.apk
 priv-app/GooglePartnerSetup/GooglePartnerSetup.apk
 priv-app/GoogleServicesFramework/GoogleServicesFramework.apk
-priv-app/Hotword/Hotword.apk
+priv-app/HotWord/HotWord.apk
 priv-app/Phonesky/Phonesky.apk
 priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk
-priv-app/PrebuiltGmsCore/lib/arm/libAppDataSearch.so
-priv-app/PrebuiltGmsCore/lib/arm/libconscrypt_gmscore_jni.so
-priv-app/PrebuiltGmsCore/lib/arm/libgames_rtmp_jni.so
-priv-app/PrebuiltGmsCore/lib/arm/libgcastv2_base.so
-priv-app/PrebuiltGmsCore/lib/arm/libgcastv2_support.so
-priv-app/PrebuiltGmsCore/lib/arm/libgmscore.so
-priv-app/PrebuiltGmsCore/lib/arm/libgms-ocrclient.so
-priv-app/PrebuiltGmsCore/lib/arm/libjgcastservice.so
-priv-app/PrebuiltGmsCore/lib/arm/libsslwrapper_jni.so
-priv-app/PrebuiltGmsCore/lib/arm/libWhisper.so
-priv-app/SetupWizardSetupWizard.apk app/Provision/Provision.apk
-priv-app/Velvet/Velvet.apk app/QuickSearchBox/QuickSearchBox.apk
-priv-app/Velvet/lib/arm/libgoogle_hotword_jni.so
-priv-app/Velvet/lib/arm/libgoogle_recognizer_jni_l.so
-priv-app/Velvet/lib/arm/libvcdecoder_jni.so
+priv-app/PrebuiltGmsCore/lib/arm64/libAppDataSearch.so
+priv-app/PrebuiltGmsCore/lib/arm64/libappstreaming_jni.so
+priv-app/PrebuiltGmsCore/lib/arm64/libconscrypt_gmscore_jni.so
+priv-app/PrebuiltGmsCore/lib/arm64/libdirect-audio.so
+priv-app/PrebuiltGmsCore/lib/arm64/libgcastv2_base.so
+priv-app/PrebuiltGmsCore/lib/arm64/libgcastv2_support.so
+priv-app/PrebuiltGmsCore/lib/arm64/libgmscore.so
+priv-app/PrebuiltGmsCore/lib/arm64/libgms-ocrclient.so
+priv-app/PrebuiltGmsCore/lib/arm64/libjgcastservice.so
+priv-app/PrebuiltGmsCore/lib/arm64/libleveldbjni.so
+priv-app/PrebuiltGmsCore/lib/arm64/linNearbyApp.so
+priv-app/PrebuiltGmsCore/lib/arm64/libsslwrapper_jni.so
+priv-app/PrebuiltGmsCore/lib/arm64/libwearable-selector.so
+priv-app/PrebuiltGmsCore/lib/arm64/libWhisper.so
+priv-app/SetupWizardSetupWizard.apk
+priv-app/Velvet/Velvet.apk
+priv-app/Velvet/lib/arm64/librotli.so
+priv-app/Velvet/lib/arm64/libcronet.so
+priv-app/Velvet/lib/arm64/libframesequence.so
+priv-app/Velvet/lib/arm64/libgoogle_speech_jni.so
+priv-app/Velvet/lib/arm64/libgoogle_speech_micro_jni.so
+priv-app/Velvet/lib/arm64/libnativecrashreporter.so
+priv-app/Velvet/lib/arm64/liboffline_actions_jni.so
+priv-app/Velvet/lib/arm64/libthird_party_brotil_dec_jni.so
 EOF
 }
 

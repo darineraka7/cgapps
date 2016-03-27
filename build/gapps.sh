@@ -1,16 +1,28 @@
-#!/bin/bash
-# (c) Joey Rizzoli, 2015
-# Released under GPL v2 License
-
+#!/bin/sh
+#This file is part of The Unofficial CyanogenMod GApps script of @Alexander Lartsev.
+#
+#    The Unofficial CyanogenMod GApps scripts are free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    These scripts are distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    This Builder script for Unofficial CyanogenMod GApps building process is derived from the CGApps work of @Joey Rizzoli
+#
 ##
 # var
 #
-DATE=$(date +%F-%H-%M)
+DATE=$(date +"%Y%m%d")
 TOP=$(realpath .)
 ANDROIDV=5.1
 OUT=$TOP/out
 BUILD=$TOP/build
 METAINF=$BUILD/meta
+SIGN=$BUILD/sign
 COMMON=$TOP/prebuilt/gapps/common
 GLOG=/tmp/gapps_log
 
@@ -55,7 +67,7 @@ function create(){
 }
 
 function zipit(){
-    BUILDZIP=gapps-$ANDROIDV-$GARCH-$DATE.zip
+    BUILDZIP=cgapps-$GARCH-$ANDROIDV-$DATE.zip
     echo "Importing installation scripts..."
     cp -r $METAINF $OUT/$GARCH/META-INF && echo "Meta copied" >> $GLOG
     echo "Creating package..."
@@ -65,7 +77,7 @@ function zipit(){
     cd $TOP
     if [ -f /tmp/$BUILDZIP ]; then
         echo "Signing zip..."
-        java -Xmx2048m -jar $TOP/build/sign/signapk.jar -w $TOP/build/sign/testkey.x509.pem $TOP/build/sign/testkey.pk8 /tmp/$BUILDZIP $OUT/$BUILDZIP >> $GLOG
+        java -Xmx2048m -jar $SIGN/signapk.jar -w $SIGN/testkey.x509.pem $SIGN/testkey.pk8 /tmp/$BUILDZIP $OUT/$BUILDZIP >> $GLOG
     else
         printerr "Couldn't zip files!"
         echo "Couldn't find unsigned zip file, aborting" >> $GLOG
@@ -78,8 +90,8 @@ function getmd5(){
         echo "md5sum is installed, getting md5..." >> $GLOG
         echo "Getting md5sum..."
         GMD5=$(md5sum $OUT/$BUILDZIP)
-        echo -e "$GMD5" > $OUT/gapps-$ANDROIDV-$GARCH-$DATE.md5
-        echo "md5 exported at $OUT/gapps-$ANDROIDV-$GARCH-$DATE.md5"
+        echo -e "$GMD5" > $OUT/cgapps-$GARCH-$ANDROIDV-$DATE.zip.md5
+        echo "md5 exported at $OUT/cgapps-$GARCH-$ANDROIDV-$DATE.zip.md5"
         return 0
     else
         echo "md5sum is not installed, aborting" >> $GLOG
