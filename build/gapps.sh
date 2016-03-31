@@ -11,19 +11,24 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
-#    This Builder script for Unofficial CyanogenMod GApps building process is derived from the CGApps work of @Joey Rizzoli
+# CGApps sources are used with permission, under the license that it may be re-used to continue the Gapps package.
+# This Build Data file for Unofficial CyanogenMod GApps building process is derived from the CGApps work of @Joey Rizzoli,
+# The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
 #
 ##
 # var
 #
-DATE=$(date +"%Y%m%d")
 TOP=$(realpath .)
+GARCH=$1
 ANDROIDV=5.1
+DATE=$(date +"%Y%m%d%H%M")
+BUILDZIP=cgapps-$GARCH-$ANDROIDV-$DATE.zip
 OUT=$TOP/out
 BUILD=$TOP/build
 METAINF=$BUILD/meta
 SIGN=$BUILD/sign
 COMMON=$TOP/prebuilt/gapps/common
+PREBUILT=$TOP/prebuilt/gapps/$GARCH
 GLOG=/tmp/gapps_log
 
 ##
@@ -55,7 +60,6 @@ function create(){
     echo "ARCH= $GARCH" >> $GLOG
     echo "OS= $(uname -s -r)" >> $GLOG
     echo "NAME= $(whoami) at $(uname -n)" >> $GLOG
-    PREBUILT=$TOP/prebuilt/gapps/$GARCH
     test -d $OUT || mkdir $OUT;
     test -d $OUT/$GARCH || mkdir -p $OUT/$GARCH
     echo "Build directories are now ready" >> $GLOG
@@ -67,16 +71,15 @@ function create(){
 }
 
 function zipit(){
-    BUILDZIP=cgapps-$GARCH-$ANDROIDV-$DATE.zip
-    echo "Importing installation scripts..."
+    echo "Copying installation scripts..."
     cp -r $METAINF $OUT/$GARCH/META-INF && echo "Meta copied" >> $GLOG
-    echo "Creating package..."
+    echo "Creating zip package..."
     cd $OUT/$GARCH
     zip -r /tmp/$BUILDZIP . >> $GLOG
     rm -rf $OUT/tmp >> $GLOG
     cd $TOP
     if [ -f /tmp/$BUILDZIP ]; then
-        echo "Signing zip..."
+        echo "Signing zip package..."
         java -Xmx2048m -jar $SIGN/signapk.jar -w $SIGN/testkey.x509.pem $SIGN/testkey.pk8 /tmp/$BUILDZIP $OUT/$BUILDZIP >> $GLOG
     else
         printerr "Couldn't zip files!"
@@ -102,7 +105,6 @@ function getmd5(){
 ##
 # main
 #
-GARCH=$1
 create
 LASTRETURN=$?
 if [ -x $(which realpath) ]; then

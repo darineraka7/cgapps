@@ -10,7 +10,9 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
-#    This Builder script for Unofficial CyanogenMod GApps building process is derived from the CGApps work of @Joey Rizzoli
+# CGApps sources are used with permission, under the license that it may be re-used to continue the Gapps package.
+# This Build Data file for Unofficial CyanogenMod GApps building process is derived from the CGApps work of @Joey Rizzoli,
+# The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
 #
 # build paths
 TOPDIR := .
@@ -36,5 +38,5 @@ x86 :
 	@bash $(BUILD_GAPPS) x86 2>&1
 
 x86_64 :
-    @echo "Compiling GApps for x86_64 devices..."
-    @bash $(BUILD_GAPPS) x86_64 2>&1
+	@echo "Compiling GApps for x86_64 devices..."
+	@bash $(BUILD_GAPPS) x86 2>&1
