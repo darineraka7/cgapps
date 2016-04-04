@@ -18,17 +18,20 @@
 ##
 # var
 #
+command -v realpath >/dev/null 2>&1 || { echo "realpath is required but it's not installed, aborting." >&2; exit 1; }
 TOP=$(realpath .)
 GARCH=$1
-ANDROIDV=5.1
-DATE=$(date +"%Y%m%d%H%M")
-BUILDZIP=cgapps-$GARCH-$ANDROIDV-$DATE.zip
+PLATFORM=5.1.1
+BUILDDATE=$(date +"%Y%m%d%H%M")
+ZIPNAME=cgapps-$GARCH-$PLATFORM-$BUILDDATE.zip
+MD5NAME=$ZIPNAME.md5
 OUT=$TOP/out
 BUILD=$TOP/build
 METAINF=$BUILD/meta
 SIGN=$BUILD/sign
-COMMON=$TOP/prebuilt/gapps/common
-PREBUILT=$TOP/prebuilt/gapps/$GARCH
+SOURCES=$TOP/prebuilt/gapps
+COMMON=$SOURCES/common
+PREBUILT=$SOURCES/$GARCH
 GLOG=/tmp/gapps_log
 
 ##
@@ -45,7 +48,7 @@ function printdone(){
 function clean(){
     echo "Cleaning up..."
     rm -r $OUT/$GARCH
-    rm /tmp/$BUILDZIP
+    rm /tmp/$ZIPNAME
     return $?
 }
 
@@ -75,12 +78,12 @@ function zipit(){
     cp -r $METAINF $OUT/$GARCH/META-INF && echo "Meta copied" >> $GLOG
     echo "Creating zip package..."
     cd $OUT/$GARCH
-    zip -r /tmp/$BUILDZIP . >> $GLOG
+    zip -r /tmp/$ZIPNAME . >> $GLOG
     rm -rf $OUT/tmp >> $GLOG
     cd $TOP
-    if [ -f /tmp/$BUILDZIP ]; then
+    if [ -f /tmp/$ZIPNAME ]; then
         echo "Signing zip package..."
-        java -Xmx2048m -jar $SIGN/signapk.jar -w $SIGN/testkey.x509.pem $SIGN/testkey.pk8 /tmp/$BUILDZIP $OUT/$BUILDZIP >> $GLOG
+        java -Xmx2048m -jar $SIGN/signapk.jar -w $SIGN/testkey.x509.pem $SIGN/testkey.pk8 /tmp/$ZIPNAME $OUT/$ZIPNAME >> $GLOG
     else
         printerr "Couldn't zip files!"
         echo "Couldn't find unsigned zip file, aborting" >> $GLOG
@@ -92,9 +95,9 @@ function getmd5(){
     if [ -x $(which md5sum) ]; then
         echo "md5sum is installed, getting md5..." >> $GLOG
         echo "Getting md5sum..."
-        GMD5=$(md5sum $OUT/$BUILDZIP)
-        echo -e "$GMD5" > $OUT/cgapps-$GARCH-$ANDROIDV-$DATE.zip.md5
-        echo "md5 exported at $OUT/cgapps-$GARCH-$ANDROIDV-$DATE.zip.md5"
+        GMD5=$(md5sum $OUT/$ZIPNAME)
+        echo -e "$GMD5" > $OUT/$MD5NAME
+        echo "md5 exported at $OUT/$MD5NAME"
         return 0
     else
         echo "md5sum is not installed, aborting" >> $GLOG
