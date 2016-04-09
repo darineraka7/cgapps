@@ -18,10 +18,21 @@ These GApps get weekly updates, feel free to fork and contribute to this, but re
 Opensource does not mean out-of-respect.
 Also NO MIRRORS ALLOWED.
 
-Download
+Links
 -------------------
 
-All builds you can download [here](https://github.com/AlexLartsev19/cgapps/releases)
+All Unofficial CyanogenMod GApps releases [here](https://github.com/AlexLartsev19/cgapps/releases)
+
+Xda Forum Unofficial CyanogenMod GApps Development Thread [here](http://forum.xda-developers.com/android/software/gapps-cgapps-unofficial-t3264174)
+
+Credits
+-------------------
+
+- Google
+- CyanogenMod
+- CGApps
+- OpenGApps
+- ApkMirror.com
 
 Build
 -------------------

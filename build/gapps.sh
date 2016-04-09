@@ -20,10 +20,10 @@
 #
 command -v realpath >/dev/null 2>&1 || { echo "realpath is required but it's not installed, aborting." >&2; exit 1; }
 TOP=$(realpath .)
-GARCH=$1
+ARCH=$1
 PLATFORM=5.1.1
 BUILDDATE=$(date +"%Y%m%d%H%M")
-ZIPNAME=cgapps-$GARCH-$PLATFORM-$BUILDDATE.zip
+ZIPNAME=cgapps-$ARCH-$PLATFORM-$BUILDDATE.zip
 MD5NAME=$ZIPNAME.md5
 OUT=$TOP/out
 BUILD=$TOP/build
@@ -31,7 +31,7 @@ METAINF=$BUILD/meta
 SIGN=$BUILD/sign
 SOURCES=$TOP/prebuilt/gapps
 COMMON=$SOURCES/common
-PREBUILT=$SOURCES/$GARCH
+PREBUILT=$SOURCES/$ARCH
 GLOG=/tmp/gapps_log
 
 ##
@@ -47,7 +47,7 @@ function printdone(){
 
 function clean(){
     echo "Cleaning up..."
-    rm -r $OUT/$GARCH
+    rm -r $OUT/$ARCH
     rm /tmp/$ZIPNAME
     return $?
 }
@@ -60,24 +60,24 @@ function Gfailed(){
 function create(){
     test -f $GLOG && rm -f $GLOG
     echo "Starting GApps compilation" > $GLOG
-    echo "ARCH= $GARCH" >> $GLOG
+    echo "ARCH= $ARCH" >> $GLOG
     echo "OS= $(uname -s -r)" >> $GLOG
     echo "NAME= $(whoami) at $(uname -n)" >> $GLOG
     test -d $OUT || mkdir $OUT;
-    test -d $OUT/$GARCH || mkdir -p $OUT/$GARCH
+    test -d $OUT/$ARCH || mkdir -p $OUT/$ARCH
     echo "Build directories are now ready" >> $GLOG
     echo "Getting prebuilts..."
     echo "Copying stuffs" >> $GLOG
-    cp -r $PREBUILT $OUT/$GARCH >> $GLOG
-    mv $OUT/$GARCH/$GARCH $OUT/$GARCH/arch >> $GLOG
-    cp -r $COMMON $OUT/$GARCH >> $GLOG
+    cp -r $PREBUILT $OUT/$ARCH >> $GLOG
+    mv $OUT/$ARCH/$ARCH $OUT/$ARCH/arch >> $GLOG
+    cp -r $COMMON $OUT/$ARCH >> $GLOG
 }
 
 function zipit(){
     echo "Copying installation scripts..."
-    cp -r $METAINF $OUT/$GARCH/META-INF && echo "Meta copied" >> $GLOG
+    cp -r $METAINF $OUT/$ARCH/META-INF && echo "Meta copied" >> $GLOG
     echo "Creating zip package..."
-    cd $OUT/$GARCH
+    cd $OUT/$ARCH
     zip -r /tmp/$ZIPNAME . >> $GLOG
     rm -rf $OUT/tmp >> $GLOG
     cd $TOP

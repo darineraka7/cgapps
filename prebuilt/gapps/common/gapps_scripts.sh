@@ -41,4 +41,4 @@ elif  [ -d /system/vendor/pittpatt/ ]; then
   rm  -f /system/lib/libfacelock_jni.so
   rm  -f /system/addon.d/31-faceunlock.sh
 fi
-rm -rf /data/local/cgapps/face
+rm -rf /tmp/face
