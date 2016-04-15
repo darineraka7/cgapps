@@ -11,7 +11,7 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
-# CGApps sources are used with permission, under the license that it may be re-used to continue the Gapps package.
+# CGApps sources are used with permission, under the license that it may be re-used to continue the GApps package.
 # This Installation Data file for Unofficial CyanogenMod GApps is derived from the CGApps work of @Joey Rizzoli,
 # The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
 #

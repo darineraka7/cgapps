@@ -28,10 +28,13 @@ Xda Forum Unofficial CyanogenMod GApps Development Thread [here](http://forum.xd
 Credits
 -------------------
 
+Thanks to:
+
 - Google
 - CyanogenMod
 - CGApps
 - OpenGApps
+- BaNks GApps
 - ApkMirror.com
 
 Build
@@ -43,13 +46,13 @@ _make clean_
 - Remove output directory
 
 _make arm_
-- compile signed flashable GApps package for arm devices
+- compile signed flashable GApps package for arm devices running on Android 5.1
 
 _make arm64_
-- compile signed flashable GApps package for arm64 devices
+- compile signed flashable GApps package for arm64 devices running on Android 5.1
 
 _make x86_
-- compile signed flashable GApps package for x86 devices
+- compile signed flashable GApps package for x86 devices running on Android 5.1
 
 _make x86_64_
-- compile signed flashable GApps package for x86_64 devices
+- compile signed flashable GApps package for x86_64 devices running on Android 5.1
