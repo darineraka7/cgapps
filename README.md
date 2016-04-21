@@ -34,7 +34,8 @@ Thanks to:
 - CyanogenMod
 - CGApps
 - OpenGApps
-- BaNks GApps
+- BaNks_Dynamic_GApps
+- slim_gapps
 - ApkMirror.com
 
 Build

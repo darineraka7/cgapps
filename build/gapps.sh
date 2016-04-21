@@ -1,5 +1,6 @@
 #!/bin/sh
-#This file is part of The Unofficial CyanogenMod GApps script of @Alexander Lartsev.
+
+#    This file is part of The Unofficial CyanogenMod GApps script of @Alexander Lartsev.
 #
 #    The Unofficial CyanogenMod GApps scripts are free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -11,10 +12,11 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #
-# CGApps sources are used with permission, under the license that it may be re-used to continue the GApps package.
-# This Build Data file for Unofficial CyanogenMod GApps building process is derived from the CGApps work of @Joey Rizzoli,
-# The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
+#    CGApps sources are used with permission, under the license that it may be re-used to continue the GApps package.
+#    This Unofficial CyanogenMod GApps Build Script includes code derived from from the CGApps work of @Joey Rizzoli,
+#    The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
 #
+
 ##
 # var
 #
@@ -27,7 +29,9 @@ ZIPNAME=cgapps-$ARCH-$PLATFORM-$BUILDDATE.zip
 MD5NAME=$ZIPNAME.md5
 OUT=$TOP/out
 BUILD=$TOP/build
-METAINF=$BUILD/meta
+INSTALL=$BUILD/install
+METAINF=$INSTALL/META-INF
+SCRIPTS=$INSTALL/scripts
 SIGN=$BUILD/sign
 SOURCES=$TOP/prebuilt/gapps
 COMMON=$SOURCES/common
@@ -75,7 +79,8 @@ function create(){
 
 function zipit(){
     echo "Copying installation scripts..."
-    cp -r $METAINF $OUT/$ARCH/META-INF && echo "Meta copied" >> $GLOG
+    cp -r $METAINF $OUT/$ARCH/META-INF && echo "META-INF copied" >> $GLOG
+    cp -r $SCRIPTS $OUT/$ARCH/scripts && echo "Scripts copied" >> $GLOG
     echo "Creating zip package..."
     cd $OUT/$ARCH
     zip -r /tmp/$ZIPNAME . >> $GLOG
