@@ -23,8 +23,8 @@ LOG_BUILD := /tmp/gapps_log
 
 clean :
 	@rm -fr $(OUTDIR)
-    @rm -fr $(LOG_BUILD)
-	@echo "$(tput setaf 2)Out directory and build log removed!$(tput sgr 0)"
+	@rm -fr $(LOG_BUILD)
+	@echo "$(tput setaf 2)Out directory and build log cleaned!$(tput sgr 0)"
 
 arm :
 	@echo "Compiling Unofficial CyanogenMod GApps package for arm devices running on Android 5.1..."

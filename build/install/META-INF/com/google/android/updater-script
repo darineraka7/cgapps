@@ -16,7 +16,7 @@ ui_print("- Extracting architecture GApps files...");
 package_extract_dir("arch", "/system");
 set_perm(0, 0, 0777, "/system/faceunlock.sh");
 run_program("/system/faceunlock.sh", "");
-ui_print("- Setting metadata recursive...")
+ui_print("- Setting metadata recursive...");
 set_perm(0, 0, 0777, "/system/setpermissions.sh");
 run_program("/system/setpermissions.sh", "");
 ui_print("- Cleaning...");

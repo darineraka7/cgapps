@@ -21,11 +21,11 @@ file_getprop() { grep "^$2" "$1" | cut -d= -f2; }
 
 build_prop=/system/build.prop
 
-rom_version_required=5.1
-rom_version_installed="$(file_getprop $build_prop "ro.build.version.release")"
+req_android_sdk=22
+rom_android_sdk="$(file_getprop $build_prop "ro.build.version.sdk")"
  
 # Prevent installation of incorrect gapps version
-if [ -z "${rom_version_installed##*$rom_version_required*}" ]; then
+if [ -z "${req_android_sdk##*$rom_android_sdk*}" ]; then
   echo "Compatible Android version...installing"
 else
   echo "Incompatible Android verson...aborting"
