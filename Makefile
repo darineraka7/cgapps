@@ -27,17 +27,17 @@ clean :
 	@echo "$(tput setaf 2)Out directory and build log cleaned!$(tput sgr 0)"
 
 arm :
-	@echo "Compiling Unofficial CyanogenMod GApps package for arm devices running on Android 5.1..."
+	@echo "Compiling Unofficial CyanogenMod GApps package for arm devices running on Android 6.0..."
 	@bash $(BUILD_GAPPS) arm 2>&1
 
 arm64 :
-	@echo "Compiling Unofficial CyanogenMod GApps package for arm64 devices running on Android 5.1..."
+	@echo "Compiling Unofficial CyanogenMod GApps package for arm64 devices running on Android 6.0..."
 	@bash $(BUILD_GAPPS) arm64 2>&1
 
 x86 :
-	@echo "Compiling Unofficial CyanogenMod GApps package for x86 devices running on Android 5.1..."
+	@echo "Compiling Unofficial CyanogenMod GApps package for x86 devices running on Android 6.0..."
 	@bash $(BUILD_GAPPS) x86 2>&1
 
 x86_64 :
-	@echo "Compiling Unofficial CyanogenMod GApps package for x86_64 devices running on Android 5.1..."
+	@echo "Compiling Unofficial CyanogenMod GApps package for x86_64 devices running on Android 6.0..."
 	@bash $(BUILD_GAPPS) x86_64 2>&1

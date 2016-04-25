@@ -23,7 +23,7 @@
 command -v realpath >/dev/null 2>&1 || { echo "realpath is required but it's not installed, aborting." >&2; exit 1; }
 TOP=$(realpath .)
 ARCH=$1
-PLATFORM=5.1.1
+PLATFORM=6.0.1
 BUILDDATE=$(date +"%Y%m%d%H%M")
 ZIPNAME=cgapps-$ARCH-$PLATFORM-$BUILDDATE.zip
 MD5NAME=$ZIPNAME.md5

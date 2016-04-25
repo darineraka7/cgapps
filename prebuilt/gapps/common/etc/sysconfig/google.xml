@@ -23,8 +23,18 @@
     <allow-in-power-save package="com.google.android.gms" />
 
     <!-- Play Store likewise must have network access to support other applications. -->
-    <allow-in-power-save package="com.android.vending" />
+    <allow-in-power-save-except-idle package="com.android.vending" />
 
     <!-- If the volta app is pre-installed (for monitoring power use), let it do checkins. -->
     <allow-in-power-save package="com.google.android.volta" />
+
+    <!-- These Google applications all handle URLs to their websites by default -->
+    <app-link package="com.android.vending" />
+    <app-link package="com.google.android.apps.plus" />
+    <app-link package="com.google.android.apps.maps" />
+    <app-link package="com.google.android.youtube" />
+    <app-link package="com.google.android.apps.docs.editors.sheets" />
+    <app-link package="com.google.android.apps.docs.editors.slides" />
+    <app-link package="com.google.android.apps.docs.editors.docs" />
+
 </config>

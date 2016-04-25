@@ -21,7 +21,7 @@ file_getprop() { grep "^$2" "$1" | cut -d= -f2; }
 
 build_prop=/system/build.prop
 
-req_android_sdk=22
+req_android_sdk=23
 rom_android_sdk="$(file_getprop $build_prop "ro.build.version.sdk")"
  
 # Prevent installation of incorrect gapps version
