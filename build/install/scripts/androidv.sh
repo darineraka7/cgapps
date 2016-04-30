@@ -15,6 +15,7 @@
 #    CGApps sources are used with permission, under the license that it may be re-used to continue the GApps package.
 #    This Unofficial CyanogenMod GApps Shell Script includes code derived from the BaNks_Dynamic_GApps work of @MrBaNks,
 #    The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
+#
 
 # Functions & variables
 file_getprop() { grep "^$2" "$1" | cut -d= -f2; }

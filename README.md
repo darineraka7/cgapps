@@ -47,13 +47,16 @@ _make clean_
 - Remove output directory
 
 _make arm_
-- compile signed flashable GApps package for arm devices running on Android 5.1
+- Compile Unofficial CyanogenMod GApps package for arm architicture
 
 _make arm64_
-- compile signed flashable GApps package for arm64 devices running on Android 5.1
+- Compile Unofficial CyanogenMod GApps package for arm64 architicture
 
 _make x86_
-- compile signed flashable GApps package for x86 devices running on Android 5.1
+- Compile Unofficial CyanogenMod GApps package for x86 architicture
 
 _make x86_64_
-- compile signed flashable GApps package for x86_64 devices running on Android 5.1
+- Compile Unofficial CyanogenMod GApps package for x86_64 architicture
+
+_make all_
+- Compile Unofficial CyanogenMod GApps packages for all supported architictures

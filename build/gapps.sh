@@ -17,9 +17,6 @@
 #    The CGApps are available under the GPLv2 from https://github.com/cgapps/vendor_google/tree/builds
 #
 
-##
-# var
-#
 command -v realpath >/dev/null 2>&1 || { echo "realpath is required but it's not installed, aborting." >&2; exit 1; }
 TOP=$(realpath .)
 ARCH=$1
@@ -33,35 +30,35 @@ INSTALL=$BUILD/install
 METAINF=$INSTALL/META-INF
 SCRIPTS=$INSTALL/scripts
 SIGN=$BUILD/sign
+SIGNAPKJAR=$SIGN/signapk.jar
+TESTKEY=$SIGN/testkey.pk8
+TESTKEYX509=$SIGN/testkey.x509.pem
 SOURCES=$TOP/prebuilt/gapps
 COMMON=$SOURCES/common
 PREBUILT=$SOURCES/$ARCH
 GLOG=/tmp/gapps_log
 
-##
-# functions
-#
-function printerr(){
+printerr(){
   echo "$(tput setaf 1)$1$(tput sgr 0)"
 }
 
-function printdone(){
+printdone(){
   echo "$(tput setaf 2)$1$(tput sgr 0)"
 }
 
-function clean(){
+clean(){
     echo "Cleaning up..."
     rm -r $OUT/$ARCH
     rm /tmp/$ZIPNAME
     return $?
 }
 
-function Gfailed(){
+Gfailed(){
     printerr "Build failed, check $GLOG"
     exit 1
 }
 
-function create(){
+create(){
     test -f $GLOG && rm -f $GLOG
     echo "Starting GApps compilation" > $GLOG
     echo "ARCH= $ARCH" >> $GLOG
@@ -77,18 +74,18 @@ function create(){
     cp -r $COMMON $OUT/$ARCH >> $GLOG
 }
 
-function zipit(){
+createzip(){
     echo "Copying installation scripts..."
     cp -r $METAINF $OUT/$ARCH/META-INF && echo "META-INF copied" >> $GLOG
     cp -r $SCRIPTS $OUT/$ARCH/scripts && echo "Scripts copied" >> $GLOG
-    echo "Creating zip package..."
+    echo "Creating $ZIPNAME..."
     cd $OUT/$ARCH
     zip -r /tmp/$ZIPNAME . >> $GLOG
     rm -rf $OUT/tmp >> $GLOG
     cd $TOP
     if [ -f /tmp/$ZIPNAME ]; then
-        echo "Signing zip package..."
-        java -Xmx2048m -jar $SIGN/signapk.jar -w $SIGN/testkey.x509.pem $SIGN/testkey.pk8 /tmp/$ZIPNAME $OUT/$ZIPNAME >> $GLOG
+        echo "Signing $ZIPNAME..."
+        java -Xmx2048m -jar $SIGNAPKJAR -w $TESTKEYX509 $TESTKEY /tmp/$ZIPNAME $OUT/$ZIPNAME >> $GLOG
     else
         printerr "Couldn't zip files!"
         echo "Couldn't find unsigned zip file, aborting" >> $GLOG
@@ -96,7 +93,7 @@ function zipit(){
     fi
 }
 
-function getmd5(){
+getmd5(){
     if [ -x $(which md5sum) ]; then
         echo "md5sum is installed, getting md5..." >> $GLOG
         echo "Getting md5sum..."
@@ -110,39 +107,7 @@ function getmd5(){
     fi
 }
 
-##
-# main
-#
+clean
 create
-LASTRETURN=$?
-if [ -x $(which realpath) ]; then
-    echo "Realpath found!" >> $GLOG
-else
-    TOP=$(cd . && pwd) # some os X love
-    echo "No realpath found!" >> $GLOG
-fi
-if [ "$LASTRETURN" == 0 ]; then
-    zipit
-    LASTRETURN=$?
-    if [ "$LASTRETURN" == 0 ]; then
-        getmd5
-        LASTRETURN=$?
-        if [ "$LASTRETURN" == 0 ]; then
-            clean
-            LASTRETURN=$?
-            if [ "$LASTRETURN" == 0 ]; then
-                echo "Done!" >> $GLOG
-                printdone "Build completed: $GMD5"
-                exit 0
-            else
-                Gfailed
-            fi
-        else
-            Gfailed
-        fi
-    else
-        Gfailed
-    fi
-else
-    Gfailed
-fi
+createzip
+getmd5
